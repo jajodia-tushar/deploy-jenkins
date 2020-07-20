@@ -5,13 +5,15 @@ pipeline {
         stage('Build Assets') {
             agent any 
             steps {
-                docker build -t jajodiatushar/react-app .
+                sh 'echo "Building Docker Image"'
+                sh 'docker build -t jajodiatushar/react-app .'
             }
         }
         stage('Test') {
             agent any
             steps {
-                docker push jajodiatushar/react-app
+                sh 'echo "Pushing Docker to DockerHub"'
+                sh 'docker push jajodiatushar/react-app'
             }
         }
     }
