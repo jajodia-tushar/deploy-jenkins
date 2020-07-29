@@ -1,13 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Welcome to Jenkins Tutorials in React Modified</p>
+        <p>Thank You! For Learning</p>
         <a
           className="App-link"
           href="https://reactjs.org"

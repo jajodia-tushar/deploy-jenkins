@@ -1,19 +1,24 @@
 pipeline {
-    agent any 
-
+    environment {
+        registry = "jajodiatushar/react-app"
+        registryCredential = 'dockerhub_id'
+    }
+    agent any
     stages {
-        stage('Build Assets') {
-            agent any 
-            steps {
-                sh 'echo "Building Docker Image"'
-                sh 'docker build -t jajodiatushar/react-app .'
+        stage('Building image') {
+            steps{
+                script {
+                   dockerImage =  docker.build registry + ":$BUILD_NUMBER"
+                }
             }
-        }
-        stage('Test') {
-            agent any
-            steps {
-                sh 'echo "Pushing Docker to DockerHub"'
-                sh 'docker push jajodiatushar/react-app'
+        }   
+        stage('Deploy Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                    }
+                }
             }
         }
     }
