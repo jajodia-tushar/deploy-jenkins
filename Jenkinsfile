@@ -12,7 +12,7 @@ pipeline {
                 }
             }
         }   
-        stage('Deploy Image') {
+        stage('Deploy Image to DockerHub') {
             steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
@@ -21,5 +21,10 @@ pipeline {
                 }
             }
         }
+        stage('Remove docker Image From Local') {
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }  
     }
 }
